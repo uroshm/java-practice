@@ -1,0 +1,29 @@
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+# Ignore Kotlin plugin data
+.kotlin
+
+# Local editor and operating system files
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+bin/
+out/
+.DS_Store
+Thumbs.db
+
+# Local environment, credentials, and logs
+.env
+.env.*
+!.env.example
+.aws/
+*.log
+*.jks
+*.keystore
