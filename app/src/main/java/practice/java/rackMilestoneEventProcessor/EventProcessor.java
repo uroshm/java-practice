@@ -28,9 +28,18 @@ public class EventProcessor {
         }
 
         eventIds.add(event.getEventId());
-        var currentEvent = eventByRackId.getOrDefault(event.getRackId(), new RackEvent(event));
+        var currentEvent = eventByRackId.get(event.getRackId());
 
-        if (event.getVersion() > currentEvent.getVersion()) {
+        if (currentEvent == null) {
+            eventByRackId.put(
+                    event.getRackId(),
+                    new RackEvent(
+                            event.getEventId(),
+                            event.getRackId(),
+                            event.getVersion(),
+                            event.getStatus(),
+                            event.getTimestamp()));
+        } else if (event.getVersion() > currentEvent.getVersion()) {
             eventByRackId.put(event.getRackId(), event);
         } else {
             log.warn("Event with id " + event.getEventId() + " is older than latest stored.");
