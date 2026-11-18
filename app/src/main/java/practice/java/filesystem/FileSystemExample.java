@@ -2,7 +2,6 @@ package practice.java.filesystem;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 
@@ -32,14 +31,12 @@ public class FileSystemExample {
     }
 
     public static FileSystemNode findById(FileSystemNode node, String tgtId) {
-        if (node.id.equals(tgtId))
-            return node;
+        if (node.id.equals(tgtId)) return node;
         if (node instanceof Directory directory) {
             node = (Directory) node;
             for (var child : directory.getChildren()) {
                 var found = findById(child, tgtId);
-                if (found != null)
-                    return found;
+                if (found != null) return found;
             }
         }
         return null;
@@ -51,28 +48,22 @@ public class FileSystemExample {
      * new node.
      */
     boolean addNode(String parentId, FileSystemNode newNode) {
-        if (newNode == null || parentId == null || parentId.isBlank())
-            return false;
+        if (newNode == null || parentId == null || parentId.isBlank()) return false;
 
         var parent = findById(this.root, parentId);
 
-        if (parent == null)
-            return false;
+        if (parent == null) return false;
         if (parent instanceof Directory directory) {
-            if (findById(root, newNode.getId()) != null)
-                return false;
+            if (findById(root, newNode.getId()) != null) return false;
             else {
                 directory.addChild(newNode);
                 return true;
             }
-        } else
-            return false;
-
+        } else return false;
     }
 
     boolean removeNode(String targetId) {
-        if (targetId.equals(root.getId()))
-            return false;
+        if (targetId.equals(root.getId())) return false;
         return removeNode(root, targetId);
     }
 
@@ -83,8 +74,7 @@ public class FileSystemExample {
                     directory.removeChild(directory.getChildren().get(i));
                     return true;
                 }
-                if (removeNode(directory.getChildren().get(i), targetId))
-                    return true;
+                if (removeNode(directory.getChildren().get(i), targetId)) return true;
             }
         }
 
@@ -94,11 +84,9 @@ public class FileSystemExample {
 
 abstract class FileSystemNode {
 
-    @Getter
-    protected final String id;
+    @Getter protected final String id;
 
-    @Getter
-    protected final String name;
+    @Getter protected final String name;
 
     public FileSystemNode(String id, String name) {
         this.id = id;
@@ -107,8 +95,7 @@ abstract class FileSystemNode {
 }
 
 class Directory extends FileSystemNode {
-    @Getter
-    private List<FileSystemNode> children = new ArrayList<>();
+    @Getter private List<FileSystemNode> children = new ArrayList<>();
 
     public void setChildren(List<FileSystemNode> children) {
         this.children.clear();
@@ -129,9 +116,7 @@ class Directory extends FileSystemNode {
 }
 
 class File extends FileSystemNode {
-    @Setter
-    @Getter
-    String content;
+    @Setter @Getter String content;
 
     public File(String id, String name, String content) {
         super(id, name);
