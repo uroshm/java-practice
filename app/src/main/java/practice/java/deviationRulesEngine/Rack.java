@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import practice.java.deviationRulesEngine.enums.Status;
 
 @Getter
 @Setter
@@ -13,5 +14,6 @@ public class Rack {
     private final String rackId;
     private final LocalDate plannedBuildDate;
     private final LocalDate actualBuildDate;
+    private final Status status;
     private final List<Material> materials;
 }

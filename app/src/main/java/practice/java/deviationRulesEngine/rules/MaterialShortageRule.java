@@ -30,7 +30,8 @@ public class MaterialShortageRule implements Rule {
                                     issueAlert(
                                             rack.getRackId(),
                                             this.ruleName,
-                                            "You are < 50% but over 0 percent short on this material",
+                                            "You are < 50% but over 0 percent short on this material "
+                                                    + shortagePct,
                                             Severity.MEDIUM));
                 }
 
@@ -40,7 +41,7 @@ public class MaterialShortageRule implements Rule {
                                 issueAlert(
                                         rack.getRackId(),
                                         this.ruleName,
-                                        "You are > 50% short on this material",
+                                        "You are > 50% short on this material " + shortagePct,
                                         Severity.HIGH));
             } else {
                 continue;

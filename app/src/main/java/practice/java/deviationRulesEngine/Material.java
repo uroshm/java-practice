@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public abstract class Material {
+public class Material {
     private final String materialId;
     private final Integer requiredQuantity;
     private final Integer availableQuantity;

@@ -16,7 +16,8 @@ public class RulesEngine {
     List<Rack> racks = new ArrayList<>();
     Map<Severity, Integer> severityByRank = new HashMap<>();
 
-    public RulesEngine() {
+    public RulesEngine(List<Rack> racks) {
+        this.racks = racks;
         instantiateSeverityRanks();
     }
 
@@ -35,13 +36,19 @@ public class RulesEngine {
         Objects.requireNonNull(rack);
         if (rules.isEmpty()) return;
 
+        alerts.removeIf(alert -> Objects.equals(alert.getRackId(), rack.getRackId()));
         for (var rule : rules) {
             var result = rule.run(rack);
             result.ifPresent(alerts::add);
         }
     }
 
-    void evaluateAll() {}
+    void evaluateAll() throws Exception {
+        alerts.clear();
+        for (var rack : racks) {
+            evaluateRack(rack);
+        }
+    }
 
     List<Alert> getRankedAlerts() {
         if (alerts.size() == 0) return Collections.emptyList();
